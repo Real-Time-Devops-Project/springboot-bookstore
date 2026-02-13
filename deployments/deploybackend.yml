@@ -1,19 +1,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: wezvabackendapp
-  namespace: wezvatechfb
+  name: bookstore-backend-app
+  namespace: bookstore-fb
   labels:
-    app.kubernetes.io/name: wezvabackendapp
+    app.kubernetes.io/name: bookstore-backend-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app.kubernetes.io/name: wezvabackendapp
+      app.kubernetes.io/name: bookstore-backend-app
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: wezvabackendapp
+        app.kubernetes.io/name: bookstore-backend-app
     spec:
      imagePullSecrets:
        - name: awsecr-cred
@@ -22,8 +22,8 @@ spec:
          image: busybox:1.28
          command: ['sh', '-c', "until nslookup mysql-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
      containers:
-       - name: wezvabackendapp
-         image: 303255670930.dkr.ecr.ap-south-1.amazonaws.com/wezvatechbackend:fb11
+       - name: bookstore-backend-app
+         image: 303255670930.dkr.ecr.ap-south-1.amazonaws.com/bookstore-backend:fb11
          imagePullPolicy: IfNotPresent
          env:
           - name: MYSQL_USER
@@ -61,12 +61,12 @@ spec:
               memory: 128Mi
          volumeMounts:
          - name: testconfigmap
-           mountPath: "/opt/wezva/application.properties"
+           mountPath: "/opt/bookstore/application.properties"
            subPath: application.properties
      volumes:
      - name: testconfigmap
        configMap:
-         name: wezvabackendapp
+         name: bookstore-backend-app
          items:
          - key: application.properties
            path: application.properties
@@ -75,9 +75,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/name: wezvabackendapp
+    app.kubernetes.io/name: bookstore-backend-app
   name: backend-svc
-  namespace: wezvatechfb
+  namespace: bookstore-fb
 spec:
   ports:
   - port: 8080
@@ -85,7 +85,7 @@ spec:
     targetPort: 8080
     nodePort: 32000	
   selector:
-    app.kubernetes.io/name: wezvabackendapp
+    app.kubernetes.io/name: bookstore-backend-app
   type: NodePort
 
 

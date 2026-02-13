@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ###################################### -->
-<!-- WEZVA TECHNOLOGIES | ADAM | 9739110917 -->
+<!-- BOOKSTORE TECHNOLOGIES | ADAM | 9739110917 -->
 <!-- ###################################### -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -8,9 +8,9 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wezvatech-springboot-mysql</artifactId>
+    <artifactId>bookstore-springboot-mysql</artifactId>
     <packaging>jar</packaging>
-    <name>Spring Boot Wezvatech Example</name>
+    <name>Spring Boot Bookstore Example</name>
     <version>9739110917</version>
 
     <parent>
