@@ -11,8 +11,8 @@
 
 ## How to run it
 ```
-# Build Jar & Skip Unit Test
-$ mvn clean package -Dmaven.test.skip=true
+# Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
+$ mvn clean package -Dmaven.test.skip=true 
 
 # Run MySQL backend container for testing
 $ docker run --name mydb -p 3306:3306 -e MYSQL_USER=wezvatech -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=mywezvadb -d mysql:8.1
