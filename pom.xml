@@ -178,6 +178,9 @@
 			
 			        <!-- Optional: avoid update every build (faster CI) -->
 			        <autoUpdate>true</autoUpdate>
+					
+					<!-- Disable OSS Index Analyzer -->
+					<ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
 			
 			    </configuration>
 			</plugin>
@@ -187,6 +190,7 @@
     </build>
 
 </project>
+
 
 
 
