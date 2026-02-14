@@ -7,6 +7,7 @@
 * JUnit 5
 * Docker
 
+
 before preparing the jenkins file and pipeline, we have to collect details like credentials of database, which commands we have to run.
 
 sudo apt update && sudo apt install -y ansible
@@ -39,6 +40,18 @@ pre requisites, jenkins servr with slave machine, sonarqube server with sonar-sc
 
 jenkins plugins required for this project: git , parameterized trigger plugin, github/gitlab plugin, amazon ecr plugin, pipeline aws steps, docker pipeline, quality gates, prometheus metrics, sonarqube-scanner 
 
+✅ Next Step (VERY IMPORTANT)
+You must configure NVD API Key.
+
+🔐 Get API Key:
+https://nvd.nist.gov/developers/request-an-api-key
+
+1️⃣ Add Secret
+
+Manage Jenkins → Credentials → Add → Secret Text
+ID: NVD_API_KEY
+Secret: your_api_key
+
 ## How to run it
 ```
 # Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
@@ -70,5 +83,6 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
