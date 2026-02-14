@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ###################################### -->
-<!-- BOOKSTORE TECHNOLOGIES | ADAM | 9739110917 -->
-<!-- ###################################### -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>bookstore-springboot-mysql</artifactId>
@@ -17,76 +15,58 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.2</version>
-        <relativePath/> <!-- lookup parent from repository, not local -->
+        <relativePath/>
     </parent>
 
     <properties>
         <java.version>17</java.version>
         <sonar.dependencyCheck.jsonReportPath>target/dependency-check-report.json</sonar.dependencyCheck.jsonReportPath>
         <sonar.dependencyCheck.htmlReportPath>target/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
-		<tomcat.version>10.1.30</tomcat.version>
-
     </properties>
-		
+
+    <!-- ===================== DEPENDENCIES ===================== -->
+
     <dependencies>
 
-        <!-- Springboot Actuator Library -->
+        <!-- Actuator -->
         <dependency>
-           <groupId>org.springframework.boot</groupId>
-           <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- micrometer SDK for Prometheus -->
+        <!-- Prometheus -->
         <dependency>
-           <groupId>io.micrometer</groupId>
-           <artifactId>micrometer-registry-prometheus</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
-        <!-- Spring Web MVC -->
+        <!-- Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Data JPA -->
+        <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- MySQL, Spring Boor 2.x -->
-        <!--
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-
-        <!-- MySQL, Spring Boot 3.x -->
+        <!-- MySQL -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- MariaDB -->
-        <!--
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        -->
-
-        <!-- Spring Test -->
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Test with TestContainers -->
+        <!-- TestContainers -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
@@ -105,21 +85,20 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
+
+    <!-- ===================== BUILD ===================== -->
 
     <build>
         <plugins>
+
+            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
+            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -130,71 +109,69 @@
                 </configuration>
             </plugin>
 
+            <!-- JaCoCo (Java 17 compatible) -->
             <plugin>
-			    <groupId>org.jacoco</groupId>
-			    <artifactId>jacoco-maven-plugin</artifactId>
-			    <version>0.8.11</version>
-			    <executions>
-			        <execution>
-			            <goals>
-			                <goal>prepare-agent</goal>
-			            </goals>
-			        </execution>
-			        <execution>
-			            <id>report</id>
-			            <phase>verify</phase>
-			            <goals>
-			                <goal>report</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			</plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
+            <!-- OWASP Dependency Check -->
             <plugin>
-			    <groupId>org.owasp</groupId>
-			    <artifactId>dependency-check-maven</artifactId>
-			    <version>12.1.0</version>
-			
-			    <executions>
-			        <execution>
-			            <goals>
-			                <goal>check</goal>
-			            </goals>
-			        </execution>
-			    </executions>
-			
-			    <configuration>
-			
-			        <!-- Use NVD API key from Jenkins environment -->
-			        <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
-			
-			        <!-- Fail build only if CVSS >= 7 -->
-			        <failBuildOnCVSS>10</failBuildOnCVSS>
-			
-			        <!-- Report formats -->
-			        <formats>
-			            <format>HTML</format>
-			            <format>JSON</format>
-			        </formats>
-			
-			        <!-- Optional: avoid update every build (faster CI) -->
-			        <autoUpdate>true</autoUpdate>
-					
-					<!-- Disable OSS Index Analyzer -->
-					<ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
-			
-			    </configuration>
-			</plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>12.1.0</version>
 
+                <executions>
+                    <execution>
+                        <id>dependency-check</id>
+                        <phase>verify</phase>   <!-- IMPORTANT -->
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+
+                    <!-- NVD API key -->
+                    <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
+
+                    <!-- Fail only if CVSS >= 10 -->
+                    <failBuildOnCVSS>10</failBuildOnCVSS>
+
+                    <!-- Reports -->
+                    <formats>
+                        <format>HTML</format>
+                        <format>JSON</format>
+                    </formats>
+
+                    <!-- Correct way to disable OSS Index in 12.x -->
+                    <ossIndex>
+                        <enabled>false</enabled>
+                    </ossIndex>
+
+                    <!-- Faster CI -->
+                    <autoUpdate>true</autoUpdate>
+
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
 
 </project>
-
-
-
-
-
-
-
