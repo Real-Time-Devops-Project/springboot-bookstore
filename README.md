@@ -7,6 +7,8 @@
 * JUnit 5
 * Docker
 
+before preparing the jenkins file and pipeline, we have to collect details like credentials of database, which commands we have to run.
+
 sudo apt update && sudo apt install -y ansible
 
 git clone this repo  jenkins-slave-config-ansible-roles
