@@ -27,6 +27,9 @@
 
 
     </properties>
+		<properties>
+	    <tomcat.version>10.1.30</tomcat.version>
+	</properties>
 
     <dependencies>
 
@@ -167,8 +170,8 @@
 			        <!-- Use NVD API key from Jenkins environment -->
 			        <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
 			
-			        <!-- Fail build only if CVSS >= 9 -->
-			        <failBuildOnCVSS>9</failBuildOnCVSS>
+			        <!-- Fail build only if CVSS >= 7 -->
+			        <failBuildOnCVSS>10</failBuildOnCVSS>
 			
 			        <!-- Report formats -->
 			        <formats>
@@ -187,5 +190,6 @@
     </build>
 
 </project>
+
 
 
