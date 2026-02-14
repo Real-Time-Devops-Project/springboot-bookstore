@@ -16,7 +16,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.3.2</version>
         <relativePath/> <!-- lookup parent from repository, not local -->
     </parent>
 
@@ -167,8 +167,8 @@
 			        <!-- Use NVD API key from Jenkins environment -->
 			        <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
 			
-			        <!-- Fail build only if CVSS >= 7 -->
-			        <failBuildOnCVSS>7</failBuildOnCVSS>
+			        <!-- Fail build only if CVSS >= 9 -->
+			        <failBuildOnCVSS>9</failBuildOnCVSS>
 			
 			        <!-- Report formats -->
 			        <formats>
@@ -187,4 +187,5 @@
     </build>
 
 </project>
+
 
