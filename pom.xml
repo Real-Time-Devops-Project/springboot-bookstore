@@ -24,13 +24,10 @@
         <java.version>17</java.version>
         <sonar.dependencyCheck.jsonReportPath>target/dependency-check-report.json</sonar.dependencyCheck.jsonReportPath>
         <sonar.dependencyCheck.htmlReportPath>target/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
-
+		<tomcat.version>10.1.30</tomcat.version>
 
     </properties>
-		<properties>
-	    <tomcat.version>10.1.30</tomcat.version>
-	</properties>
-
+		
     <dependencies>
 
         <!-- Springboot Actuator Library -->
@@ -190,6 +187,7 @@
     </build>
 
 </project>
+
 
 
 
