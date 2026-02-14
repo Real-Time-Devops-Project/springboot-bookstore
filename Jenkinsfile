@@ -1,7 +1,7 @@
 pipeline {
  agent none
  parameters {
-     string(name: 'ECRURL', defaultValue: '001647536300.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter your Docker ECR REGISTRY URL without https?')
+     string(name: 'ECRURL', defaultValue: '211125470003.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter your Docker ECR REGISTRY URL without https?')
     string(name: 'APPREPO', defaultValue: 'bookstore-backend', description: 'Please Enter your Docker App Repo Name:TAG?')
     string(name: 'REGION', defaultValue: 'ap-south-1', description: 'Please Enter your AWS Region?') 
     password(name: 'PASSWD', defaultValue: '', description: 'Please Enter your Gitlab password')
@@ -14,7 +14,7 @@ pipeline {
     {
       agent { label 'demo' }
       steps {
-        git branch: 'newfeature', credentialsId: 'GitlabCred', url: 'https://gitlab.com/bookstoreprojects/buildpipeline/backend/springboot.git'
+        git branch: 'newfeature', credentialsId: 'GitlabCred', url: 'https://github.com/Real-Time-Devops-Project/springboot-bookstore.git'
       }
      } 
 
