@@ -150,25 +150,41 @@
 	        </plugin>
 
             <plugin>
-              <groupId>org.owasp</groupId>
-              <artifactId>dependency-check-maven</artifactId>
-              <version>7.1.1</version>
-              <executions>
-                  <execution>
-                      <goals>
-                          <goal>check</goal>
-                      </goals>
-                  </execution>
-              </executions>
-             <configuration>
-                 <formats>
-                 <format>json</format>
-                 <format>html</format>
-                 </formats>
-             </configuration>
-             </plugin>
+			    <groupId>org.owasp</groupId>
+			    <artifactId>dependency-check-maven</artifactId>
+			    <version>12.1.0</version>
+			
+			    <executions>
+			        <execution>
+			            <goals>
+			                <goal>check</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			
+			    <configuration>
+			
+			        <!-- Use NVD API key from Jenkins environment -->
+			        <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
+			
+			        <!-- Fail build only if CVSS >= 7 -->
+			        <failBuildOnCVSS>7</failBuildOnCVSS>
+			
+			        <!-- Report formats -->
+			        <formats>
+			            <format>HTML</format>
+			            <format>JSON</format>
+			        </formats>
+			
+			        <!-- Optional: avoid update every build (faster CI) -->
+			        <autoUpdate>true</autoUpdate>
+			
+			    </configuration>
+			</plugin>
+
 
         </plugins>
     </build>
 
 </project>
+
