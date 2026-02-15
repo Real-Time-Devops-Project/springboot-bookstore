@@ -19,6 +19,16 @@ git clone this repo  jenkins-slave-config-ansible-roles
 
 docker run -d --name sonarqube -p 9000:9000 sonarqube
 
+docker run -d \
+  --name sonarqube \
+  -p 9000:9000 \
+  --restart unless-stopped \
+  -v sonarqube_data:/opt/sonarqube/data \
+  -v sonarqube_logs:/opt/sonarqube/logs \
+  -v sonarqube_extensions:/opt/sonarqube/extensions \
+  sonarqube:lts
+
+
 inbound rules
 jemkins server port 8080
 sonarqube server port 9000
@@ -70,5 +80,6 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
