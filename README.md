@@ -65,6 +65,12 @@ go to the project settings webhook create new webhoook url http:<jenkinsurl>:808
 
 now in jenkins we have to select a option build when a change is pushed github, push event, opened merge request, comments and save
 
+## now continous integration build has been completed with somketest once the devloper commits , we will check the image is good or not using smoke test in the feature branch.
+
+Now we come to the next branch is 
+
+now we install the argocd, we will use same kind cluster for now.
+
 ## How to run it
 ```
 # Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
@@ -96,6 +102,7 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
 
