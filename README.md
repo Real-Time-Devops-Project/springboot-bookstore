@@ -49,6 +49,16 @@ pre requisites, jenkins servr with slave machine, sonarqube server with sonar-sc
 
 jenkins plugins required for this project: git , parameterized trigger plugin, github/gitlab plugin, amazon ecr plugin, pipeline aws steps, docker pipeline, quality gates, prometheus metrics, sonarqube-scanner 
 
+ADD kind cluster to the jenkins to run the smoke test.
+
+the smoke test will do in dev environiment.
+
+######Now we will initiate Only CI once the Someke test is sucessful########
+
+for that we have to create the webhook for github/gitlab from jenkins 
+in github create the personal access token with repo access (token name - demo, expiry, read repo and read api), 
+in jenkins create new credentials (gitlab api token) with paste the api token, give it an id "gitlabtoken"
+
 ## How to run it
 ```
 # Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
@@ -80,6 +90,7 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
 
