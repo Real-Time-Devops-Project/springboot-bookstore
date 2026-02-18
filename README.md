@@ -59,6 +59,12 @@ for that we have to create the webhook for github/gitlab from jenkins
 in github create the personal access token with repo access (token name - demo, expiry, read repo and read api), 
 in jenkins create new credentials (gitlab api token) with paste the api token, give it an id "gitlabtoken"
 
+next crete webhook on jenkins, system search for github/gitlab connection name mygilab, gitlab host url https://gitlab.com, credentials.
+
+go to the project settings webhook create new webhoook url http:<jenkinsurl>:8080/project/<jenkins JobName> , secret token , event push event, add webhook
+
+now in jenkins we have to select a option build when a change is pushed github, push event, opened merge request, comments and save
+
 ## How to run it
 ```
 # Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
@@ -90,6 +96,7 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
 
