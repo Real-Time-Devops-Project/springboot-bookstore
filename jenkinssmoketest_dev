@@ -102,7 +102,8 @@ pipeline {
     agent { label 'demo' }
 	steps {
            echo "Scanning Image for Vulnerabilities"
-           sh "trivy image --scanners vuln --offline-scan  ${params.APPREPO}:fb${env.BUILD_ID} > trivyresults.txt"
+           //sh "trivy image --scanners vuln --offline-scan  ${params.APPREPO}:fb${env.BUILD_ID} > trivyresults.txt"
+			sh "trivy image --severity HIGH,CRITICAL --no-progress ${params.APPREPO}:fb${env.BUILD_ID} > trivyresults.txt"
 
            echo "Analyze Dockerfile for best practices ..."
            sh "docker run --rm -i hadolint/hadolint < Dockerfile | tee -a dockerlinter.log"
@@ -120,8 +121,8 @@ pipeline {
        steps {
            git branch: 'newfeature', credentialsId: 'GitlabCred', url: 'https://github.com/Real-Time-Devops-Project/springboot-bookstore.git'
       
-           echo "Preparing KIND cluster ..."
-           sh "kind create cluster --name bookstoredemo --config=kind.yml"
+           // echo "Preparing KIND cluster ..."
+          // sh "kind create cluster --name bookstoredemo --config=kind.yml"
            sh "kubectl create namespace bookstore-fb"
           withAWS(credentials:'AWSCred') {
             	    sh "kubectl create secret docker-registry awsecr-cred  --docker-server=$ECRURL  --docker-username=AWS --docker-password=\$(aws ecr get-login-password)  --namespace=bookstore-fb"
@@ -140,12 +141,12 @@ pipeline {
     {
        agent { label 'kind' }
        steps {
-              cacheError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Smokes test failed') {
+              catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS', message: 'Smokes test failed') {
 			  sh "kubectl wait --for=condition=ready pod/`kubectl get pods -n bookstore-fb |grep bookstore |awk '{print \$1}'| tail -1` -n bookstore-fb  --timeout=300s"
               sh  "echo Springboot deployed successfully ..."
 				}
               echo "Deleting the  Namespace ..."
-              sh "kind delete namespace bookstore-fb"
+              sh "kubectl delete namespace bookstore-fb"
 			  
 			 // echo "Deleting test cluster ..."
              // sh "kind delete clusters bookstoredemo"
