@@ -1,5 +1,8 @@
 pipeline {
  agent none
+	environment {
+	        NVD_API_KEY = credentials('NVD_API_KEY')
+	    }
  parameters {
      string(name: 'ECRURL', defaultValue: '211125470003.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter your Docker ECR REGISTRY URL without https?')
     string(name: 'APPREPO', defaultValue: 'bookstore-backend', description: 'Please Enter your Docker App Repo Name:TAG?')
@@ -175,4 +178,5 @@ pipeline {
   }
 
  }
+
 }
