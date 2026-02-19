@@ -8,6 +8,8 @@
 * Docker
 * 
 
+Upto quality gates we can run on one slave machine , build and scan image we can run on one slave and some deploy and test run on different machine.
+
 before preparing the jenkins file and pipeline, we have to collect details like credentials of database, which commands we have to run.
 
 sudo apt update && sudo apt install -y ansible
