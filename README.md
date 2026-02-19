@@ -78,6 +78,15 @@ add slave machine in jenkins, manage jenkins, manage nodes and clouds, new node,
 
 smoke test is only for feature branch, it is only for our confirmation, once it is done we have to provide the image/ deployment to QA Team/Env.
 
+upto now we test the code step by step like one stage at a time, now we configure auto ci build once push event happen it will automatically trigger the jenkins pipeline.
+
+steps. first create personal access token in git hub, it is in main left icon devlopment, classic token, expiry, privilage create token and copy paste some where.
+create in jenkins , system , github , github server, name mygithub, api url default, credential global sectrt text , provide generated token and then save.
+
+github repo  → Settings → Webhooks → Add Webhook Payload URL: http://<EC2-PUBLIC-IP>:8080/github-webhook/
+ Content Type: application/json
+Events: Just the push event (u can change this as per requirement.
+
 
 Feature Branch Build: Triggered when a new commit is pushed
 Checkout | Build | Code-coverage | SCA | SAST | Quality-Gates | Build Image | Scan Image | Smoke Test
@@ -120,6 +129,7 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
 
