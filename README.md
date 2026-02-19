@@ -74,6 +74,20 @@ now we install the argocd, we will use same kind cluster for now.
 
 add slave machine in jenkins, manage jenkins, manage nodes and clouds, new node, give it a name "slave1", select permanent agent, give remote root directory /home/jenkins, select launch method as "Launch agents via ssh", give the host ip of slave machine, credentials select the ssh credentials which we have created for slave machine, save and test connection should be successful
 
+
+smoke test is only for feature branch, it is only for our confirmation, once it is done we have to provide the image/ deployment to QA Team/Env.
+
+
+Feature Branch Build: Triggered when a new commit is pushed
+Checkout | Build | Code-coverage | SCA | SAST | Quality-Gates | Build Image | Scan Image | Smoke Test
+
+Integration Branch Build: Triggered when a merge is accepted
+Checkout | Build | Code-coverage | SCA | SAST | Quality-Gates | Build Image | Scan Image
+
+Release Branch Build: Triggered when a merge is accepted
+Checkout | Build | Build Image | Scan Image
+
+
 ## How to run it
 ```
 # Build Jar & Skip Unit Test why we don't have database currently installed so we are skipping unit test
@@ -105,6 +119,7 @@ $ curl -s http://localhost:8080/actuator/health/readiness
 # dummy commit Apr/12
 #test
 ```
+
 
 
 
